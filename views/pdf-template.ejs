@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <style>
+    <% const path = require('path'); %>
+    @font-face {
+      font-family: 'NotoNaskhArabic';
+      src: url('file:///' + path.join(__dirname, '..', 'public', 'fonts', 'NotoNaskhArabic-Regular.ttf').replace(/\\/g, '/')) format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    * {
+      font-family: 'NotoNaskhArabic', system-ui, sans-serif;
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+    }
+    .page {
+      page-break-after: always;
+      padding: 14mm;
+    }
+    .receipt-box {
+      border: 1px solid #333;
+      padding: 12mm;
+      min-height: 240mm;
+      position: relative;
+    }
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    .footer {
+      position: absolute;
+      bottom: 12mm;
+      left: 12mm;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <% rows.forEach((row, idx) => { %>
+    <div class="page">
+      <div class="receipt-box">
+        <h2>لجنة دعم بلدية أنصار</h2>
+        <div class="meta">
+          <div>رقم السند: <%= String(idx + 1).padStart(6, '0') %></div>
+          <div>التاريخ: <%= date %></div>
+        </div>
+        <%- include('_receipt', { row: row, project: project }) %>
+        <div class="footer">توقيع المحاسب: ____________________</div>
+      </div>
+    </div>
+  <% }); %>
+</body>
+</html>
